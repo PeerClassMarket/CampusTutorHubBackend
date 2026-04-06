@@ -23,14 +23,16 @@ public class BookingService {
     private GigService gigService;
 
     @Transactional
-    public Booking createBooking(User student, Long gigId) {
+    public Booking createBooking(User student, Long gigId, LocalDateTime startTime, LocalDateTime endTime) {
         Gig gig = gigService.getGigById(gigId);
         
         Booking booking = Booking.builder()
                 .gig(gig)
                 .student(student)
                 .status(BookingStatus.PENDING)
-                .bookingTime(LocalDateTime.now())
+                .startTime(startTime)
+                .endTime(endTime)
+                .meetingChannel("channel-" + student.getId() + "-" + gigId + "-" + System.currentTimeMillis())
                 .build();
                 
         return bookingRepository.save(booking);

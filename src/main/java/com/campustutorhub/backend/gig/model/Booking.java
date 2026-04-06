@@ -32,7 +32,13 @@ public class Booking {
     @Builder.Default
     private BookingStatus status = BookingStatus.PENDING;
 
-    private LocalDateTime bookingTime;
+    @Column(nullable = false)
+    private LocalDateTime startTime;
+
+    @Column(nullable = false)
+    private LocalDateTime endTime;
+
+    private String meetingChannel; // Agora channel name
 
     private String paymentIntentId; // Stripe payment intent ID
 }
